@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Ingreso</title>
+</head>
+<body>
+    <h1>Ingresado</h1>
+    <p>Gracias, su ingreso ha sido registrado.</p>
+
+    <!-- Llamada al webhook de Google Sheets en segundo plano -->
+    <script>
+        fetch("https://script.google.com/macros/s/AKfycbw2Y8FAnJATh-hqBcxnMkdly4_Up8ZuAqqp2LfuIKiof29pXRxFta3gWWrIyqMgMXZo/exec", {
+            method: "POST",
+            body: JSON.stringify({ message: "12345" }), // Reemplaza "12345" con el código QR único para cada caja
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => response.json())
+        .then(data => console.log("Ingreso registrado en Sheets:", data))
+        .catch(error => console.error("Error al registrar ingreso:", error));
+    </script>
+</body>
+</html>
